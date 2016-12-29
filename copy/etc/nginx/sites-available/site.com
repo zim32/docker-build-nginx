@@ -15,7 +15,7 @@ server {
         }
 
         location / {
-                fastcgi_pass 127.0.0.1:8080;
+                fastcgi_pass    127.0.0.1:8080;
 
                 fastcgi_param   QUERY_STRING            $query_string;
                 fastcgi_param   REQUEST_METHOD          $request_method;
