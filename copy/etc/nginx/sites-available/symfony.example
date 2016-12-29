@@ -1,0 +1,37 @@
+server {
+
+        listen 80 default_server;
+        #listen 443 ssl;
+
+        server_name	site.com;
+
+        access_log 	/var/log/nginx/site.com.access.log;
+        error_log 	/var/log/nginx/site.com.error.log info;
+
+        #ssl_certificate /etc/nginx/cert/crt.pem;
+        #ssl_certificate_key /etc/nginx/cert/private.pem;
+
+        location ~* \.(?:ico|css|js|gif|jpe?g|png|woff|woff2)$ {
+                access_log off;
+                expires 30d;
+                root /home/zim32/www/site.com;
+        }
+
+        location = /config.php {
+                fastcgi_pass    127.0.0.1:8080;
+                include         fastcgi.conf;
+                fastcgi_param   DOCUMENT_ROOT           /home/zim32/www/app;
+                fastcgi_param   SCRIPT_FILENAME         /home/zim32/www/app/web/config.php;
+                fastcgi_param   SCRIPT_NAME             config.php;
+        }
+
+        location / {
+                fastcgi_pass    127.0.0.1:8080;
+                include         fastcgi.conf;
+                fastcgi_param   DOCUMENT_ROOT           /home/zim32/www/app;
+                fastcgi_param   SCRIPT_FILENAME         /home/zim32/www/app/web/app_dev.php;
+                fastcgi_param   SCRIPT_NAME             app_dev.php;
+        }
+
+}
+
