@@ -11,6 +11,8 @@ server {
         #ssl_certificate_key /etc/nginx/cert/private.pem;   
 
         location ~* \.(?:ico|css|js|gif|jpe?g|png|woff|woff2)$ {
+		access_log off;
+		expires 30d;
                 root /home/zim32/www/site.com;
         }
 
